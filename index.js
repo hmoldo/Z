@@ -9,8 +9,8 @@ import * as io from "./src/IO";
 import * as img from "./src/IMG.js";
 import * as obj from "./src/OBJ.js";
 import * as mime from "./src/MIME.js";
-import * as date from "./src/MIME.js";
-import * as geo from "./src/MIME.js";
-import * as data from "./src/MIME.js";
+import * as date from "./src/DATE.js";
+import * as geo from "./src/GEO.js";
+import * as data from "./src/DATA.js";
 
 export { str, arr, net, url, valid, math, io, img, obj, mime, date, geo, data };
