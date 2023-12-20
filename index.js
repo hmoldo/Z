@@ -10,15 +10,4 @@ import * as img from "./src/IMG.js";
 import * as obj from "./src/OBJ.js";
 import * as mime from "./src/MIME.js";
 
-export const Z = {
-  str,
-  arr,
-  net,
-  url,
-  valid,
-  math,
-  io,
-  img,
-  obj,
-  mime,
-};
+export { str, arr, net, url, valid, math, io, img, obj, mime };
