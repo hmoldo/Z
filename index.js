@@ -1,14 +1,14 @@
 //index.js
-import * as str from "./STRING.js";
-import * as arr from "./ARRAY.js";
-import * as net from "./NET.js";
-import * as url from "./URL";
-import * as valid from "./VALID.js";
-import * as math from "./MATH.js";
-import * as io from "./IO";
-import * as img from "./IMG.js";
-import * as obj from "./OBJ.js";
-import * as mime from "./MIME.js";
+import * as str from "./Z/STRING.js";
+import * as arr from "./Z/ARRAY.js";
+import * as net from "./Z/NET.js";
+import * as url from "./Z/URL";
+import * as valid from "./Z/VALID.js";
+import * as math from "./Z/MATH.js";
+import * as io from "./Z/IO";
+import * as img from "./Z/IMG.js";
+import * as obj from "./Z/OBJ.js";
+import * as mime from "./Z/MIME.js";
 
 export default {
   str,
