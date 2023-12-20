@@ -29,7 +29,7 @@ describe("Data (array of objects) utils", () => {
       aTest2: "a-test-2",
       aTest3: "a-test-3",
     });
-    expect(Z.data.createMap(o1)).toEqual(o1);
-    expect(Z.data.createMap("test")).toBe("test");
+    expect(data.createMap(o1)).toEqual(o1);
+    expect(data.createMap("test")).toBe("test");
   });
 });

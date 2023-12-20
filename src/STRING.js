@@ -7,6 +7,7 @@ export const toCamel = (s) =>
   s.replace(/([-_][a-z0-9])/gi, ($1) =>
     $1.toUpperCase().replace("-", "").replace("_", "")
   );
+
 // Decamelizes a string with/without a custom separator (dash by default).
 export const decamelize = (str, separator = "-") =>
   str
@@ -15,11 +16,14 @@ export const decamelize = (str, separator = "-") =>
     .toLowerCase();
 
 export const getFirstMatch = (str, reg) => (str.match(reg) || []).shift();
+
 export const getFirstChar = (str) =>
-  str ? t.getFirstMatch(str, /[A-Za-z]/g) || "" : "";
+  str ? getFirstMatch(str, /[A-Za-z]/g) || "" : "";
+
 export const splitCommas = (str) => str.split(/[\s,]+/);
 
 export const int = (str) => (str ? parseInt(str.match(/\d+/g)[0]) : 0);
+
 export function getInt(num) {
   let n = parseInt(num, 10);
   return isNaN(n) ? 0 : n;
@@ -53,7 +57,7 @@ export const htmlEntities = {
 };
 
 export function removeOuterTags(str) {
-  str = t.unescapeHTML(str);
+  str = unescapeHTML(str);
   if (str[0] == "<" && str[str.length - 1] == ">") {
     let p = str.indexOf(">") + 1;
     str = str.substr(p);
@@ -106,11 +110,13 @@ export const slugify = (str, separator = "-") =>
 
 export const join = (strArray, glue = " ") =>
   strArray.filter((str) => str?.length).join(glue);
+
 export function trim(str, c) {
   if (c === "]") c = "\\]";
   if (c === "\\") c = "\\\\";
   return str.replace(new RegExp("^[" + c + "]+|[" + c + "]+$", "g"), "");
 }
+
 export const getNameFromPath = (path) =>
   path
     .split("/")
@@ -125,5 +131,6 @@ export const plural = (msgObj, count, replaces = { count }) => {
   for (let key in replaces) msg = msg.replace(`{${key}}`, replaces[key]);
   return msg;
 };
+
 export const insertStrAt = (str, pos, insert) =>
   str.substr(0, pos) + insert + str.substr(pos);

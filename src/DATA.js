@@ -1,10 +1,11 @@
 import { pushToProp } from "./OBJ";
 import is from "./is";
 import { toCamel } from "./STRING";
+import { format } from "date-fns";
 
 const groupType = {
   letter: (o, prop) => o[prop][0].toUpperCase(),
-  day: (o, prop) => Z.date.format(o[prop], "YYYY-MM-DD"),
+  day: (o, prop) => format(o[prop], "YYYY-MM-DD"),
   string: (o, prop) => o[prop],
 };
 
@@ -55,7 +56,7 @@ export function filter(arr, filters) {
   if (filters)
     for (let prop in filters) {
       let val = filters[prop];
-      if (Z.is.array(val)) {
+      if (is.array(val)) {
         arr = arr.filter((item) => val.includes(item[prop]));
       } else {
         arr = arr.filter((item) => item[prop] == val);
@@ -83,17 +84,9 @@ export function createMap(list, key = "id") {
   return obj;
 }
 
-// arr2obj(arr, key = 'id') {
-//     if (!is.array(arr)) return arr;
-//     let obj = {};
-//     if (is.object(arr[0])) arr.forEach(item => (obj[item[key]] = item));
-//     else arr.forEach(item => (obj[Z.toCamel(item)] = item));
-//     return obj;
-// },
-
 export function bringToFront(list, item, key = "id") {
   if (!item) return;
-  if (!Z.is.array(list)) list = Object.values(list);
+  if (!is.array(list)) list = Object.values(list);
   if (item == list[0]) return;
   let id = item[key];
   list.sort((x, y) => (x[key] == id ? -1 : y[key] == id ? 1 : 0));
