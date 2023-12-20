@@ -10,7 +10,7 @@ import * as img from "./src/IMG.js";
 import * as obj from "./src/OBJ.js";
 import * as mime from "./src/MIME.js";
 
-export default {
+export const Z = {
   str,
   arr,
   net,
