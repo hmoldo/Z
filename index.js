@@ -1,7 +1,4 @@
 //index.js
+import * as NET from "./Z/NET.js";
 
-function helloNpm() {
-  return "hello NPM";
-}
-
-module.exports = helloNpm;
+module.exports = { NET };

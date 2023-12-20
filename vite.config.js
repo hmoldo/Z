@@ -3,4 +3,9 @@ export default {
   optimizeDeps: {
     exclude: ["Z"],
   },
+  test: {
+    coverage: {
+      reportsDirectory: "./test/unit-coverage",
+    },
+  },
 };
