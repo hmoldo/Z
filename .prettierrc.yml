@@ -1,0 +1,10 @@
+printWidth: 120
+tabWidth: 4
+semi: true
+singleQuote: true
+arrowParens: 'avoid'
+overrides:
+    - files: '*.vue'
+      options:
+          printWidth: 100
+          tabWidth: 2
