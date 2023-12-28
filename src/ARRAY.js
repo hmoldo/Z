@@ -14,8 +14,10 @@ export function sort(arr, type, desc) {
 }
 
 export const getLast = (arr) => arr[arr.length - 1];
+
 export const cycle = (arr, i) =>
   arr[i < 0 ? arr.length - 1 : i >= arr.length ? 0 : i];
+
 export const cycleTo = (arr, find, step) =>
   cycle(arr, arr.findIndex(find) + step);
 
@@ -44,10 +46,16 @@ export function remove(arr, fn, max, start = 0) {
   return found;
 }
 
-export function toggle(arr, v) {
-  let index = arr.indexOf(v),
+/**
+ * Adds a vale to an array if not found or removes it if found.
+ * @param {Array} arr The array to search
+ * @param {*} value The value to find
+ * @returns {Number}
+ */
+export function toggle(arr, value) {
+  let index = arr.indexOf(value),
     add = index == -1;
-  if (add) arr.push(v);
+  if (add) arr.push(value);
   else arr.splice(index, 1);
   return add;
 }

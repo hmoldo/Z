@@ -10,16 +10,16 @@ const groupType = {
 };
 
 // groups an array of objects
-export function groupBy(arr, prop, type) {
+export function groupBy(arr, key, type) {
   const groupsObj = {},
     groupsArr = [];
   arr.forEach((o) => {
-    let key = groupType[type](o, prop);
+    let key = groupType[type](o, key);
     groupsObj[key] = groupsObj[key] || [];
     groupsObj[key].push(o);
   });
   for (let key in groupsObj) {
-    groupsArr.push({ key, data: sort(groupsObj[key], prop, { type: String }) });
+    groupsArr.push({ key, data: sort(groupsObj[key], key, { type: String }) });
   }
   sort(groupsArr, "key", { type: String });
   return groupsArr;

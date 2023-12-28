@@ -1,6 +1,12 @@
 import { remove, maxOfLows } from "./ARRAY";
 import is from "./is";
 
+/**
+ * From specific keys of an object get the value in an array
+ * @param {Object} obj The object to get the values
+ * @param {Array} keys Array of key names to get
+ * @returns {Array} The values of the keys
+ */
 export const props2Array = (obj, keys) =>
   keys.reduce((a, k) => a.concat(obj[k]), []);
 
@@ -26,15 +32,15 @@ export function removeFromProp(obj, key, ...items) {
   if (!arr.length) delete obj[key];
 }
 
-export const flatten = (ob) => {
+export const flatten = (obj) => {
   let result = {};
 
-  for (const i in ob) {
-    if (Z.is.object(ob[i])) {
-      const temp = flatten(ob[i]);
+  for (const i in obj) {
+    if (is.object(obj[i])) {
+      const temp = flatten(obj[i]);
       for (const j in temp) result[j] = result[j] || temp[j];
     } else {
-      result[i] = ob[i];
+      result[i] = obj[i];
     }
   }
   return result;
@@ -61,7 +67,7 @@ export function assignProps(target, source, keys) {
 export const getKey = (obj, key, val) =>
   has(obj, key) ? obj[key] : (obj[key] = val);
 
-// Like Object.assign but filter outs nulls
+// Like Object.assign but filter outs nullish
 export function getProps(obj, keys) {
   return keys.reduce((a, k) => {
     if (obj[k]) a[k] = obj[k];
@@ -76,15 +82,28 @@ export function pick(obj, keys) {
   }, {});
 }
 
+/**
+ * Renames a key in an object
+ * @param {Object} The object that its key will be renamed
+ * @param {String} key The original key name
+ * @param {String} newName The new name
+ * @returns
+ */
 export function renameProp(obj, key, newName) {
   if (!has(obj, key)) return;
   obj[newName] = obj[key];
   delete obj[key];
 }
+
+/**
+ * Renames multiple keys in all objects in an array
+ * @param {Array} list The array of the objects to rename their keys
+ * @param {Object} renames An object with old names as keys and new names as values
+ */
 export function renameProps(list, renames) {
   list.forEach((item) => {
     for (let oldName in renames) {
-      Z.renameProp(item, oldName, renames[oldName]);
+      renameProp(item, oldName, renames[oldName]);
     }
   });
 }
@@ -137,7 +156,13 @@ export function serializeForm(formData) {
 
 export const vals = (obj) => (is.array(obj) ? obj : Object.values(obj));
 
+/**
+ * Check if has at least one key
+ * @param {*} obj
+ * @returns {Boolean} True if key length greater than zero
+ */
 export const hasKeys = (obj) => obj && Object.keys(obj).length;
+
 export const isEmpty = (obj) => is.object(obj) && !Object.keys(obj).length;
 
 export const ifValues = (obj) =>

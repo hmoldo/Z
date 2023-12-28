@@ -1,8 +1,14 @@
 // String ----------------------------------------------------------------------------
+
+/**
+ * Capitalizes first string character
+ * @param {String} str The target string
+ * @returns {String}
+ */
 export const capitalize = (str) =>
   str.charAt(0).toUpperCase() + str.substring(1);
 
-// Hyphanated to camel case
+// Hyphenated to camel case
 export const toCamel = (s) =>
   s.replace(/([-_][a-z0-9])/gi, ($1) =>
     $1.toUpperCase().replace("-", "").replace("_", "")
@@ -15,18 +21,31 @@ export const decamelize = (str, separator = "-") =>
     .replace(/([A-Z]+)([A-Z][a-z\d]+)/g, "$1" + separator + "$2")
     .toLowerCase();
 
+/**
+ * Get first match of a reg expression
+ * @param {String} str The target string
+ * @param {*} reg
+ * @returns
+ */
 export const getFirstMatch = (str, reg) => (str.match(reg) || []).shift();
 
+/**
+ * Returns first alphabetic character from string
+ * @param {String} str The target string
+ * @returns {String}
+ */
 export const getFirstChar = (str) =>
   str ? getFirstMatch(str, /[A-Za-z]/g) || "" : "";
 
 export const splitCommas = (str) => str.split(/[\s,]+/);
 
-export const int = (str) => (str ? parseInt(str.match(/\d+/g)[0]) : 0);
-
-export function getInt(num) {
-  let n = parseInt(num, 10);
-  return isNaN(n) ? 0 : n;
+export function int(str, onError = 0) {
+  try {
+    let n = parseInt(str, 10);
+    return isNaN(n) ? parseInt((str + "").match(/\d+/g)[0]) : n;
+  } catch (e) {
+    return onError;
+  }
 }
 
 export function addBrackets(str, count = 1) {
@@ -75,28 +94,31 @@ export const unescapeHTML = (escapedHTML) =>
 
 export const query = (query, str) =>
   str.toLowerCase().includes(query.toLowerCase());
-export const mark = (str, mark, marker = "mark") =>
-  str
-    .toLowerCase()
-    .replace(
-      new RegExp(mark, "g"),
-      "<" + marker + ">" + mark + "</" + marker + ">"
-    );
 
-export function markOn({ str, start, length, trim }) {
-  let zero = trim >= 0 ? start - trim : 0,
-    fin = trim >= 0 ? start + length + trim : 10000;
+/**
+ * Search and wraps with tag all founded parts
+ * @param {String} str The main string to search in
+ * @param {String} find The substring to search for
+ * @param {String} tag The tag to wrap the founded substrings
+ * @returns {String} The new string
+ */
+export const wrapTag = (str, find, tag) =>
+  str.replace(new RegExp(find, "g"), startTag(tag) + find + endTag(tag));
+
+export function tagAt(str, start, length, tag) {
   str = str.replace(/<[^>]*>/g, "");
+  const end = start + length;
   return (
-    (zero > 0 ? ".." : "") +
-    str.substring(zero, start) +
-    "<mark>" +
-    str.substring(start, start + length) +
-    "</mark>" +
-    str.substring(start + length, fin) +
-    (fin < str.length ? ".." : "")
+    str.substring(0, start) +
+    startTag(tag) +
+    str.substring(start, end) +
+    endTag(tag) +
+    str.substring(end)
   );
 }
+
+export const startTag = (tag) => "<" + tag + ">";
+export const endTag = (tag) => "</" + tag + ">";
 
 export const slugify = (str, separator = "-") =>
   str
@@ -132,5 +154,18 @@ export const plural = (msgObj, count, replaces = { count }) => {
   return msg;
 };
 
+/**
+ * Inserts a string in another string at specific point
+ * @param {String} str
+ * @param {Number} pos
+ * @param {String} insert
+ * @returns {String}
+ */
 export const insertStrAt = (str, pos, insert) =>
   str.substr(0, pos) + insert + str.substr(pos);
+
+// encodes & decodes comma sep ids
+export const encode = (ids, sep = "i") =>
+  ids.map((id) => id.toString(16)).join(sep);
+export const decode = (str, sep = "i") =>
+  str ? str.split(sep).map((id) => parseInt(id, 16)) : null;

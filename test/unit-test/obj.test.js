@@ -10,6 +10,77 @@ let o1 = { a: 1, b: 2, c: 3, d: 4, e: 5 },
   o6 = { a: "a", b: 3, c: new Date(2000, 11, 17) },
   arr2 = [o4, o5, o6];
 
+test("Get selected keys in array", () => {
+  expect(obj.props2Array(o1, ["b", "d", "e"])).toEqual([2, 4, 5]);
+});
+
+test("Flattens an object", () => {
+  let o = {
+    one: 5,
+    two: { a: 1, b: 2 },
+    three: { b: 3, c: 4 },
+  };
+  expect(obj.flatten(o)).toEqual({
+    one: 5,
+    a: 1,
+    b: 2,
+    c: 4,
+  });
+});
+
+test("Renames an objects key", () => {
+  let o = {
+    one: 1,
+    two: 2,
+    three: 3,
+  };
+  obj.renameProp(o, "two", "five");
+  expect(o).toEqual({
+    one: 1,
+    five: 2,
+    three: 3,
+  });
+});
+
+test("Renames multiple keys in all objects in an array", () => {
+  let o1 = {
+    one: 1,
+    two: 2,
+    three: 3,
+  };
+  let o2 = {
+    eight: 1,
+    b: 4,
+    two: 2,
+    three: 9,
+  };
+  obj.renameProps([o1, o2], {
+    two: "five",
+    three: "nine",
+    b: "c",
+  });
+  expect(o1).toEqual({
+    one: 1,
+    five: 2,
+    nine: 3,
+  });
+  expect(o2).toEqual({
+    eight: 1,
+    five: 2,
+    nine: 9,
+    c: 4,
+  });
+});
+
+test("Check if has at least one key", () => {
+  let o1 = { one: 1, two: 2, three: 3 },
+    o2 = {},
+    o3;
+  expect(obj.hasKeys(o1)).toBe(3);
+  expect(obj.hasKeys(o2)).toBe(0);
+  expect(obj.hasKeys(o3)).toBe(undefined);
+});
+
 test("Creates array from object properties", () => {
   expect(
     obj.props2Array({ a: 1, b: 2, c: 3, d: 4, e: 5 }, ["a", "c", "e"])
