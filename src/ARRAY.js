@@ -9,6 +9,11 @@ export function sort(arr, type, desc) {
     return arr;
 }
 
+/**
+ * Get last element of array
+ * @param {Array} arr
+ * @returns
+ */
 export const getLast = arr => arr[arr.length - 1];
 
 export const cycle = (arr, i) => arr[i < 0 ? arr.length - 1 : i >= arr.length ? 0 : i];
