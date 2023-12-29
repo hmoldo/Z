@@ -8,7 +8,8 @@ import * as mime from './MIME.js';
 import * as net from './NET.js';
 import * as obj from './OBJ.js';
 import * as str from './STRING.js';
+import system from './user-agent.js';
 import * as url from './URL.js';
 import * as valid from './VALID.js';
 
-export { arr, img, io, is, math, mime, net, obj, str, url, valid };
+export { arr, img, io, is, math, mime, net, obj, str, system, url, valid };
