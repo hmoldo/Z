@@ -2,7 +2,7 @@
 import * as arr from './ARRAY.js';
 import * as img from './IMG.js';
 import * as io from './IO.js';
-import * as is from './is.js';
+import is from './is.js';
 import * as math from './MATH.js';
 import * as mime from './MIME.js';
 import * as net from './NET.js';
